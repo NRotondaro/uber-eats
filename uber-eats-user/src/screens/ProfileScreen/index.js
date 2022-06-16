@@ -1,6 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Auth } from 'aws-amplify';
 
 const Profile = () => {
   const [name, setName] = useState('');
@@ -37,6 +38,10 @@ const Profile = () => {
         onChangeText={setLng}
         placeholder='Longitude'
         style={styles.input}
+      />
+      <Button
+        onPress={() => Auth.signOut()}
+        title='Sign out'
       />
       <Button onPress={onSave} title='Save' />
     </SafeAreaView>
