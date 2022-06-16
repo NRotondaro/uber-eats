@@ -8,13 +8,20 @@ import OrdersScreen from '../screens/OrdersScreen';
 import OrderDetailsScreen from '../screens/OrderDetailsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { Foundation, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Stack = createStackNavigator();
 
 const RootNavigator = () => {
+  const { dbUser } = useAuthContext();
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='HomeTabs' component={HomeTabs} />
+      {dbUser ? (
+        <Stack.Screen name='HomeTabs' component={HomeTabs} />
+      ) : (
+        <Stack.Screen name='Profile' component={ProfileScreen} />
+      )}
     </Stack.Navigator>
   );
 };
