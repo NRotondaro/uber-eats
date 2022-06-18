@@ -1,6 +1,9 @@
 import { View, Text, Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+const DEFAULT_IMAGE =
+  'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant4.jpeg';
+
 const OrderLisItem = ({ order }) => {
   const navigation = useNavigation();
   return (
@@ -9,7 +12,11 @@ const OrderLisItem = ({ order }) => {
       style={{ flexDirection: 'row', margin: 10, alignItems: 'center' }}
     >
       <Image
-        source={{ uri: order.Restaurant.image }}
+        source={{
+          uri: order?.Restaurant.image.startsWith('http')
+            ? order?.Restaurant.image
+            : DEFAULT_IMAGE,
+        }}
         style={{ width: 75, height: 75, marginRight: 5 }}
       />
 
