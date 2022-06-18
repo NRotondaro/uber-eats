@@ -10,6 +10,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
 import { Dish } from '../../models';
+import { useBasketContext } from '../../contexts/BasketContext';
 
 const DishDetailsScreen = () => {
   const [quantity, setQuantity] = useState(1);
@@ -19,6 +20,8 @@ const DishDetailsScreen = () => {
   const route = useRoute();
 
   const id = route.params?.id;
+
+  const { addDishToBasket } = useBasketContext();
 
   useEffect(() => {
     if (id) {
@@ -37,6 +40,11 @@ const DishDetailsScreen = () => {
 
   const getTotal = () => {
     return (dish.price * quantity).toFixed(2);
+  };
+
+  const onAddToBasket = async () => {
+    await addDishToBasket(dish, quantity);
+    navigation.goBack();
   };
 
   if (!dish) {
@@ -65,10 +73,7 @@ const DishDetailsScreen = () => {
         />
       </View>
 
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate('Basket')}
-      >
+      <Pressable style={styles.button} onPress={onAddToBasket}>
         <Text style={styles.buttonText}>
           Add {quantity} to basket · ${getTotal()}
         </Text>
