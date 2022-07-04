@@ -1,16 +1,17 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
-import OrderDelivery from './src/screens/OrderDelivery';
-import OrdersScreen from './src/screens/OrdersScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import Navigation from './src/navigation';
 
 export default function App() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={{ flex: 1, justifyContent: 'center', paddingTop: 50 }}>
-        <OrderDelivery />
+    <NavigationContainer>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Navigation />
+
         <StatusBar style='auto' />
-      </View>
-    </GestureHandlerRootView>
+      </GestureHandlerRootView>
+    </NavigationContainer>
   );
 }
